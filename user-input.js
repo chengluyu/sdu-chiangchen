@@ -47,7 +47,7 @@ module.exports = {
       rl.question(query, answer => {
         answer = parseInt(answer, 10);
         if (1 <= answer && answer <= list.length) {
-          resolve(list[answer]);
+          resolve(list[answer - 1]);
         } else {
           reject(new Error('Invaild answer.'));
         }
