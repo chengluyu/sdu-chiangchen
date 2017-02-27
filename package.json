@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/chengluyu/sdu-chiangchen/issues"
   },
-  "homepage": "https://github.com/chengluyu/sdu-chiangchen#readme"
+  "homepage": "https://github.com/chengluyu/sdu-chiangchen#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "request": "^2.79.0"
+  }
 }
