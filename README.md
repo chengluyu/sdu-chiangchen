@@ -15,7 +15,7 @@ npm run start
 
 ## How to configure auto login?
 
-Just create a file named `auto-login.js` with following content:
+Just create a file named `auto-login.json` with following content:
 
 ```json
 {
@@ -23,6 +23,8 @@ Just create a file named `auto-login.js` with following content:
   "password": "y0ur p@ssword"
 }
 ```
+
+This file will not be tracked by git.
 
 ## License
 
