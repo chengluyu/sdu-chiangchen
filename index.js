@@ -23,10 +23,11 @@ async function main() {
     
     let form = await tryAutoLogin()
     
-    if (await User.login(form, jar)) {
+    let loginResult = await User.login(form, jar)
+    if (loginResult.success) {
       console.log('Login success')
     } else {
-      console.log('Login failed')
+      console.log(`Login failed (reason: ${loginResult.serverMessage})`)
       return
     }
     
