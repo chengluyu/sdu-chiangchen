@@ -1,29 +1,23 @@
 const UserInput = require('./lib/user-input')
-const Jar = require('./lib/jar')
-const { User, Query } = require('./lib/requests')
+const User = require('./lib/user')
 
 async function tryAutoLogin() {
   const { existsSync, readFileSync } = require('fs')
 
-  let form = existsSync('./auto-login.json')
+  let info = existsSync('./auto-login.json')
       ? JSON.parse(readFileSync('./auto-login.json', 'utf8'))
       : { username: await UserInput.question('Username: '),
           password: await UserInput.password('Password') }
 
-  form.verify = await UserInput.question('Capture code: ')
-  return form
+  return info
 }
 
 async function main() {
   try {
-    let jar = new Jar()
+    let user = new User(await tryAutoLogin())
 
-    await User.getPhpSessionID(jar)
-    await User.downloadCaptureImage(jar)
-    
-    let form = await tryAutoLogin()
-    
-    let loginResult = await User.login(form, jar)
+    let loginResult = await user.login()
+
     if (loginResult.success) {
       console.log('Login success')
     } else {
