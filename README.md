@@ -15,7 +15,7 @@ npm run start
 
 ## How to configure auto login?
 
-Just create a file named `auto-login.json` with following content:
+Just create a file named `config.json` with following content:
 
 ```json
 {
