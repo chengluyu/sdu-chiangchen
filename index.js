@@ -1,11 +1,12 @@
 const Input = require('./lib/input')
 const User = require('./lib/user')
+const Library = require('./lib/library')
 
-async function tryAutoLogin() {
+async function importConfig() {
   const { existsSync, readFileSync } = require('fs')
 
-  let info = existsSync('./auto-login.json')
-      ? JSON.parse(readFileSync('./auto-login.json', 'utf8'))
+  let info = existsSync('./config.json')
+      ? JSON.parse(readFileSync('./config.json', 'utf8'))
       : { username: await Input.question('Username: '),
           password: await Input.password('Password') }
 
@@ -14,7 +15,7 @@ async function tryAutoLogin() {
 
 async function main() {
   try {
-    let user = new User(await tryAutoLogin())
+    let user = new User(await importConfig())
 
     let loginResult = await user.login()
 
@@ -25,13 +26,15 @@ async function main() {
       return
     }
 
-    // let floorStatus = await Query.getFloorStatus();
-    // let selectedArea = await Input.chooseFromList('Select an area: ', floorStatus.areas);
-    // console.log('You selected: ', selectedArea.name);
+    let library = new Library()
 
-    // let areaStatus = await Query.getAreaStatus(selectedArea.id);
-    // let selectedSeat = await Input.chooseFromList('Select a seat: ', areaStatus.seats);
-    // console.log('You selected: ', selectedSeat.name);
+    let floor = await library.queryFloor()
+    let selectedArea = await Input.chooseFromList('Select an area: ', floor.areas)
+    console.log('You selected: ', selectedArea.name)
+
+    let area = await library.queryArea(selectedArea);
+    let selectedSeat = await Input.chooseFromList('Select a seat: ', area.seats)
+    console.log('You selected: ', selectedSeat.name)
 
   } catch (e) {
     console.log(e)
