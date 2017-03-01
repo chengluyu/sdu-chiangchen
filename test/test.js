@@ -22,7 +22,7 @@ describe('Jar', () => {
   ]
 
   describe('#add()', () => {
-      it('should keep the cookies accurately', () => {
+    it('should keep the cookies accurately', () => {
         let jar = new Jar()
         sampleCookies.forEach(sample => {
           jar.add(sample.cookie)
