@@ -38,9 +38,9 @@ async function main() {
 
     let bookResult = await library.bookSeat(selectedSeat, user)
     if (bookResult.success) {
-      console.log('Login success (message: ${bookResult.serverMessage})')
+      console.log(`Booking success (message: ${bookResult.serverMessage})`)
     } else {
-      console.log(`Login failed (reason: ${bookResult.serverMessage})`)
+      console.log(`Booking failed (reason: ${bookResult.serverMessage})`)
       return
     }
 
