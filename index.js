@@ -1,6 +1,6 @@
-const Input = require('./lib/input')
 const User = require('./lib/user')
 const Library = require('./lib/library')
+const inquirer = require('inquirer')
 
 async function importConfig() {
   const { existsSync, readFileSync } = require('fs')
@@ -11,10 +11,18 @@ async function importConfig() {
     info = JSON.parse(readFileSync('./config.json', 'utf8'))
     console.log('Detected configuration file')
   } else {
-    info = {
-      username: await Input.question('Username: '),
-      password: await Input.password('Password')
-    }
+    info = await inquirer.prompt([
+      {
+        name: 'username',
+        message: 'Username:',
+        type: 'password'
+      },
+      {
+        name: 'password',
+        message: 'Password:',
+        type: 'password'
+      }
+    ])
   }
 
   return info
@@ -36,12 +44,24 @@ async function main() {
     let library = new Library()
 
     let floor = await library.queryFloor()
-    let selectedArea = await Input.chooseFromList('Select an area: ', floor.areas)
-    console.log('You selected: ', selectedArea.name)
+    let { selectedArea } = await inquirer.prompt({
+      type: 'list',
+      name: 'selectedArea',
+      message: 'Select an area:',
+      choices: floor.areas.map(area => {
+        return { name: area.name, value: area }
+      })
+    })
 
     let area = await library.queryArea(selectedArea);
-    let selectedSeat = await Input.chooseFromList('Select a seat: ', area.seats)
-    console.log('You selected: ', selectedSeat.name)
+    let { selectedSeat } = await inquirer.prompt({
+      type: 'list',
+      name: 'selectedSeat',
+      message: 'Select an seat:',
+      choices: area.seats.map(seat => {
+        return { name: seat.name, value: seat }
+      })
+    })
 
     let bookResult = await library.bookSeat(selectedSeat, user)
     if (bookResult.success) {

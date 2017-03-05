@@ -20,6 +20,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "getpass": "^0.1.6",
+    "inquirer": "^3.0.6",
     "request": "^2.79.0"
   },
   "devDependencies": {
