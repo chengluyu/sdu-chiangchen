@@ -12,6 +12,9 @@ Then, install dependencies by npm and run:
 npm install
 npm run start
 ```
+Then just follow the instructions.
+
+![Uasge](demo.png)
 
 ## How to configure auto login?
 
