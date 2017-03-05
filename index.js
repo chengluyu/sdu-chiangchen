@@ -5,10 +5,17 @@ const Library = require('./lib/library')
 async function importConfig() {
   const { existsSync, readFileSync } = require('fs')
 
-  let info = existsSync('./config.json')
-      ? JSON.parse(readFileSync('./config.json', 'utf8'))
-      : { username: await Input.question('Username: '),
-          password: await Input.password('Password') }
+  let info
+
+  if (existsSync('./config.json')) {
+    info = JSON.parse(readFileSync('./config.json', 'utf8'))
+    console.log('Detected configuration file')
+  } else {
+    info = {
+      username: await Input.question('Username: '),
+      password: await Input.password('Password')
+    }
+  }
 
   return info
 }
