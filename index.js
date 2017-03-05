@@ -36,6 +36,7 @@ async function main() {
 
     if (loginResult.success) {
       console.log('Login success')
+      console.log('Welcome!', user.name)
     } else {
       console.log(`Login failed (reason: ${loginResult.serverMessage})`)
       return
@@ -49,7 +50,7 @@ async function main() {
       name: 'selectedArea',
       message: 'Select an area:',
       choices: floor.areas.map(area => {
-        return { name: area.name, value: area }
+        return { name: `${area.name} (${area.vacancy})`, value: area }
       })
     })
 
@@ -59,7 +60,7 @@ async function main() {
       name: 'selectedSeat',
       message: 'Select an seat:',
       choices: area.seats.map(seat => {
-        return { name: seat.name, value: seat }
+        return { name: `${seat.name} (${seat.statusText})`, value: seat }
       })
     })
 
