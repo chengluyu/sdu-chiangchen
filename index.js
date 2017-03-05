@@ -73,7 +73,8 @@ async function main() {
     }
 
   } catch (e) {
-    console.log(e)
+    console.log('Error:', e.message)
+    console.log('Call stack:', e.stack)
   }
 }
 
