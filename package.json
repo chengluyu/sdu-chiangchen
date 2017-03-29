@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "node ./node_modules/mocha/bin/mocha",
-    "lint": "./node_modules/.bin/eslint ."
+    "lint": "./node_modules/.bin/eslint .",
+    "serve": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +31,8 @@
   "devDependencies": {
     "eslint": "^3.18.0",
     "mocha": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=7.7.0"
   }
 }
