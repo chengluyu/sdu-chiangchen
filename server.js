@@ -35,7 +35,7 @@ router.get('/reserve', async (ctx, next) => {
 
 })
 
-app.use(router.route())
+app.use(router.routes())
 app.use(router.allowedMethods())
 
 app.listen(3000)
