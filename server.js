@@ -9,8 +9,9 @@ const BodyParser   = require('koa-bodyparser')
 const Randomstring = require('randomstring')
 
 // my modules
-const Requests  = require('./lib/requests/user')
-const CookieJar = require('./lib/jar')
+const UserRequests  = require('./lib/requests/user')
+const CookieJar     = require('./lib/jar')
+const InfoRequests  = require('./lib/requests/query')
 
 // global variables
 let app          = new Koa()
@@ -25,8 +26,8 @@ router.get('/capturecode', async (ctx, next) => {
 
   tokenStorage.set(token, jar)
 
-  await Requests.getPhpSessionID(jar)
-  const imageData = await Requests.fetchCaptureImage(jar)
+  await UserRequests.getPhpSessionID(jar)
+  const imageData = await UserRequests.fetchCaptureImage(jar)
   const base64Data = (new Buffer(imageData)).toString('base64')
 
   ctx.set('Content-Type', 'application/json')
@@ -69,7 +70,7 @@ router.post('/login', async (ctx, next) => {
 
   let jar = tokenStorage.get(token)
 
-  let result = await Requests.login({ username, password, verify }, jar)
+  let result = await UserRequests.login({ username, password, verify }, jar)
 
   ctx.set('Content-Type', 'application/json')
   ctx.body = JSON.stringify(result)
@@ -77,12 +78,29 @@ router.post('/login', async (ctx, next) => {
   await next()
 })
 
+let latestData = null
+let updatedTime = new Date()
+
+async function update() {
+  const { Floor } = require('./lib/classes')
+
+  return [
+    await InfoRequests.getFloorStatus(2),
+    await InfoRequests.getFloorStatus(3)
+  ].map(raw => new Floor(raw))
+}
+
 router.get('/area', async (ctx, next) => {
 
-})
+  if (new Date() - updatedTime > 3000) {
+    latestData = await update()
+    updatedTime = new Date()
+  }
 
-router.get('/floor', async (ctx, next) => {
+  ctx.set('Content-Type', 'application/json')
+  ctx.body = JSON.stringify(latestData, null, 2)
 
+  await next()
 })
 
 router.get('/reserve', async (ctx, next) => {
