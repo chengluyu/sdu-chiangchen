@@ -23,11 +23,11 @@ describe('Jar', () => {
 
   describe('#add()', () => {
     it('should keep the cookies accurately', () => {
-        let jar = new Jar()
-        sampleCookies.forEach(sample => {
-          jar.add(sample.cookie)
-          assert.equal(jar.get(sample.key), sample.value)
-        })
+      let jar = new Jar()
+      sampleCookies.forEach(sample => {
+        jar.add(sample.cookie)
+        assert.equal(jar.get(sample.key), sample.value)
+      })
     })
   })
 })

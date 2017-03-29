@@ -54,7 +54,7 @@ async function main() {
       })
     })
 
-    let area = await library.queryArea(selectedArea);
+    let area = await library.queryArea(selectedArea)
     let { selectedSeat } = await inquirer.prompt({
       type: 'list',
       name: 'selectedSeat',
