@@ -1,7 +1,16 @@
-# sdu-chiangchen
+# `sdu-chiangchen` - Node.js API for Chiangchen Library Reservation System
 
 This is a terminal client of seat reservation system of Chiang Chen Library,
 which is located in the central campus of Shangdong University.
+
+## Where is Chiangchen Library?
+
+Chiangchen Library is located in the central campus of Shandong University.
+
+## What's the purpose of this project?
+
+The user experience of online seat reservation system of Chiangchen Library is
+really awful. So I analyzed the API and made this tool.
 
 ## How to use this tool?
 
@@ -12,13 +21,13 @@ Then, install dependencies by npm and run:
 npm install
 npm run start
 ```
-Then just follow the instructions.
+Then the prompts will instruct you.
 
 ![Uasge](demo.png)
 
 ## How to configure auto login?
 
-Just create a file named `config.json` with following content:
+Create a file named `config.json` with following content:
 
 ```json
 {
@@ -27,7 +36,7 @@ Just create a file named `config.json` with following content:
 }
 ```
 
-This file will not be tracked by git.
+This file had been added in `.gitignore`, so it will not be tracked by git.
 
 ## License
 
