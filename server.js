@@ -1,6 +1,7 @@
 // built-in modules
-const fs   = require('fs-promise')
-const path = require('path')
+const fs     = require('fs-promise')
+const path   = require('path')
+const colors = require('colors')
 
 // third-party modules
 const Koa          = require('koa')
@@ -19,6 +20,13 @@ let router       = new Router()
 let tokenStorage = new Map()
 
 app.use(BodyParser())
+
+app.use(async (ctx, next) => {
+  const start = new Date()
+  await next()
+  const ms = new Date() - start
+  console.log(`${ctx.method.bgWhite} ${ctx.url} - ${ms}ms`)
+})
 
 router.get('/capturecode', async (ctx, next) => {
   let token = Randomstring.generate(32)
